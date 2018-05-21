@@ -1,0 +1,199 @@
+.MainArea {
+    width: 1000px;
+    height: 600px;
+    background-color: white;
+    margin:10px auto;
+	pointer: fixed;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+
+.Head{
+	width: 245px;
+	height: 77px;
+	background-color: azure;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+
+.Into{
+	width: 245px;
+	height: 77px;
+	background-color: #2E3238;
+}
+
+.Right{
+	left: 245px;
+	width: 755px;
+	height: 600px;
+    display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+
+.Msg{
+	height: 435px;
+	left: 245px;
+	width: 755px;
+	background-color: #EEEEEE;
+	overflow-y: auto;
+	 display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+.div1{
+    left: 0;
+	width: 100px;
+	height: 435px;
+}
+
+.div2{
+	left: 100px;
+	width: 530px;
+	height: 435px;
+}
+.div3{
+	left: 647px;
+	width: 100px;
+	height: 435px;
+}
+.textArea{
+	left: 245px;
+	width: 755px;
+	background-color: white;
+}
+.news_others{
+	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+	padding:10px 10px;
+	margin: 4px;
+	line-height: auto;
+	outline-width: 435px; 
+	font-size: 14px;
+	border-radius:10px;
+	margin-left: 10px;
+	position: relative;
+	float: right;
+	width: auto;
+	height: auto;
+}
+.news_my{
+	width: auto;
+	height: auto;
+	background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+	padding:10px 10px;
+	margin: 4px;
+	line-height: auto;
+	outline-width: 435px; 
+	font-size: 14px;
+	border-radius:10px;
+	margin-left: 10px;
+	position: relative;
+	float: left;
+}
+.rounded-circle1 {
+	margin-top: 2px;
+	margin-bottom: 2px;
+    border-radius: 50%; 
+	width:40px;
+	height: 40px;
+}
+.rounded-circle {
+	margin-top: 10px;
+	margin-bottom: 10px;
+    border-radius: 50%; 
+	width:50px;
+	height: 50px;
+}
+.text{
+	width: 755px;
+	height: 160px;
+	font-size: 16px;
+}
+
+.mss{
+	padding-left: 15px;
+}
+
+.leaveTop{
+	margin-top: 15px;
+}
+
+.sendIcon{
+	margin-top: 10px;
+}
+.ToPerson{
+	width: 755px;
+	height: 50px;
+	background-color: whitesmoke;
+}
+	
+.othersMsg {
+	float:right;
+}
+
+.chatIcon{
+	width: 40px;
+	height: 40px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.myName {
+	color: white;
+	width: auto;
+	height: 50px;
+	font-size: 20px;
+}
+
+
+
+.Left {
+	 display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+.userList {
+	height: 523px;
+	background-color: azure;
+	 display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+
+.onePerson {
+	width: auto;
+	height: 50px;
+	background-color: currentColor;
+}
+
+.login_information{
+	margin-right: 10px;
+	float: right;
+	background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+.login_information1{
+	margin-left: 10px;
+	float: left;
+	background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.messageMain {
+	width: 720px;
+	height: auto;
+	 display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+
+.messageIcon {
+	width: 40px;
+	height: 40px;
+	margin: 20px 10px; 
+}
+
+.messageContent {
+	height: auto;
+	width: 660px;
+}
+
+.messageIcon1{
+	width: 40px;
+	height: 40px;
+	margin: 20px 10px; 
+	float: right;
+}

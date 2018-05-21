@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <title>chat</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.css}">
+    <script type="text/javascript" th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{css/design.css}">
+    <base target="_blank">
+</head>
+<body style="background-image: url(images/bg.jpg);">
+<div class="MainArea">
+    <div class="Left">
+        <div class="Head">
+            <div class="Into form-control"><img id="icon" alt="头像" class="rounded-circle">&nbsp;&nbsp;
+                <span class="myName" th:text="${username}"></span>
+            </div>
+        </div>
+        <div class="userList" id="users">
+        </div>
+    </div>
+    <div class="Right">
+        <div class="ToPerson" id="chatperson"></div>
+        <div class="Msg" id="msg">
+        </div>
+        <div class="textArea">
+            <textarea id="info" class="text form-control" placeholder="按Ctrl和enter键发送"></textarea>
+            <button id="send" class="btn btn-info sendIcon">发送</button>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    $(function () {
+        var my_icon;
+        var toperson, toIcon;
+        var icon = $("#icon").attr("src");
+        var num = Math.floor(Math.random() * 15);
+        icon = "images/" + num + ".jpg";
+        my_icon = icon;
+        $("#icon").attr("src", icon);
+        /*加载头像*/
+        var username = [[${username}]];
+        console.log(username);
+        var target = "ws://localhost:8080/chat/" + username + "/" + num;
+        var ws = new WebSocket(target);
+
+        ws.onmessage = function (p1) {
+            eval("var msg=" + p1.data + ";");
+            if (undefined == msg.message) {
+                $(msg.username).each(function () {
+                    if (username != this) {
+                        toperson = this;
+                        $("#users").append("<p class='onePerson form-control'> <img id='others' alt='头像' class='rounded-circle1'>&nbsp;&nbsp;" +
+                            "<span class='myName' id='to'>" + this + "</span> </p>");
+                        $("#chatperson").append("<div class='onePerson form-control'> <img id='toPersonIcon' alt='头像' class='rounded-circle1'>&nbsp;&nbsp;" +
+                            "<span class='myName'>" + this + "</span> </div>");
+                    }
+                });
+
+                $(msg.num).each(function () {
+                    if (num != this) {
+                        toIcon = this;
+                        $("#others").attr("src", "images/" + this + ".jpg");
+                        $("#toPersonIcon").attr("src", "images/" + this + ".jpg");
+                    }
+                })
+            } else {
+                //别人发送的消息
+                other_say(msg.message);
+            }
+        };
+
+        function getContent() {
+            var str = $("#info").val();
+            var reg = /((http|ftp|https|file):\/\/([\w\-]+\.)+[\w\-]+(\/[\w\u4e00-\u9fa5\-\.\/?\@\%\!\&=\+\~\:\#\;\,]*)?)/ig;
+            var arc = str.match(reg);
+            str= str.replace(arc, "<a href='" + arc + "'>" + arc + "</a>");
+            var rege = new RegExp("\n", "g");
+            str = str.replace(rege, "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+            $("#info").val("");
+            return str;
+        }
+
+        $(document).keydown(function (event) {
+            if (event.ctrlKey && event.which == 13) {
+                var content = getContent();
+                I_say(content);
+                var object = {
+                    to: toperson,
+                    msg: content
+                };
+                var str = JSON.stringify(object);
+                ws.send(str);
+
+            }
+        });
+
+
+        $("#send").click(function () {
+            var content = getContent();
+            I_say(content);
+            var object = {
+                to: toperson,
+                msg: content
+            };
+            var str = JSON.stringify(object);
+            ws.send(str);
+            $("#info").val("");
+        });
+
+        function other_say(content) {
+            $("#msg").append("<div class='messageMain'><img class='messageIcon' src='images/" + toIcon + ".jpg'><div class='messageContent'>" +
+                "<font class='login_information1 ' size='1'>" + gettime() + "</font><br><li class='news_my'>" + content + "</li><br></div></div>");
+            $("#msg").scrollTop($("#msg")[0].scrollHeight);
+        }
+
+        function I_say(content) {
+            $("#msg").append("<div class='messageMain'><div class='messageContent'>" +
+                "<font class='login_information' size='1'>" + gettime() + "</font><br><li class='news_others'>" + content + "</li><br></div>" +
+                "<img class='messageIcon' src='images/" + num + ".jpg'></div>");
+            $("#msg").scrollTop($("#msg")[0].scrollHeight);
+        }
+
+        function gettime() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;//js中是从0开始所以要加1
+            var day = date.getDate();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            var presentTime = year + '-' + month + '-' + day + '  ' + hour + ':' + minute;
+            return presentTime;
+        }
+
+    })
+</script>
+</html>
